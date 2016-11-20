@@ -1,9 +1,8 @@
 '''
     @Author : Hitendra Shukla
-    Finding Occluded Objects in Images usign Naive Bayes
-
-    Note:
-
+    Finding Occluded Objects in Images using Naive Bayes
+	
+	''Chages
 '''
 
 
@@ -93,7 +92,7 @@ def getProbability(word1, word2):
     return word1Cnt/float(word2Cnt)
 
 
-print "PROBABILITY = ",getProbability('floor',['cable'])
+print "PROBABILITY = ",getProbability('tree',['window'])
 
 
 
