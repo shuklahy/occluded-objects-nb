@@ -35,7 +35,7 @@ class Image(object):
 		for i in object:
 			if not(i in self.objNames):
 				return False
-		return True
+		return True	
 
 def getData(filename):
 
@@ -92,8 +92,34 @@ def getProbability(word1, word2):
     return word1Cnt/float(word2Cnt)
 
 
-print "PROBABILITY = ",getProbability('tree',['window'])
-
-
-
-    # Implementing a Naives Bayes Model to classify data
+# Get all the Unique Objects in the dataSets
+def getUniqueObjects():
+	imgData = getData('100images.txt')
+	objNames = []
+	for i in xrange(len(imgData)):
+		img = imgData[i]
+		objNames += img.getObjectNames()
+		
+	#print len(objNames)
+	uniqueObjectNames = set(objNames)
+	#print len(uniqueObjectNames)
+	return uniqueObjectNames
+	
+# Get MostLikely objects given a set of words given some threshold
+def mostLikelyObjects(wordList, threshold):
+	allObjects = getUniqueObjects()
+	likelyObjects = []
+	for obj in allObjects:
+		prob = getProbability(obj, wordList)
+		if prob > threshold:
+			likelyObjects.append(obj)
+	
+	return likelyObjects
+			
+#print "PROBABILITY = ",getProbability('tree',['window'])
+objNames = getUniqueObjects()
+wordList = ['window']
+threshold = 0.1
+mlo = mostLikelyObjects(wordList, threshold)
+print "Most likely objects given - ", wordList," Threshold =", threshold
+print mlo
