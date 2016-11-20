@@ -13,6 +13,10 @@ class Image(object):
         self.link = link
         self.objects = objects #List of Objects
         self.imageNo = no
+        self.objNames = []
+        for obj in self.objects:
+            self.objNames.append(obj[0])
+
 
     def printDetails(self):
         print self.imageNo
@@ -21,6 +25,12 @@ class Image(object):
 
     def getTotalObjects(self):
         return len(self.objects)
+
+    def getObjectNames(self):
+        return self.objNames
+
+    def contains(self, object):
+        return object in self.objNames
 
 def getData(filename):
 
@@ -45,7 +55,7 @@ def getData(filename):
         imageNo = int(no)
         imageLink = fp.readline()
         imageNoOfObjects = int(fp.readline())
-
+        objects = []
         for i in xrange(imageNoOfObjects):
             objectDetails = fp.readline().split(' ')
             objectName = ' '.join(objectDetails[4:]).rstrip('\n')
@@ -58,8 +68,27 @@ def getData(filename):
 
     return images
 
-images = getData('100images.txt')
-print len(images)
+
+def getProbability(word1, word2):
+    imgData = getData('100images.txt')
+    word2Cnt = 0
+    word1Cnt = 0
+    prob = 0
+    for i in xrange(len(imgData)):
+        img =  imgData[i]
+        print img.link
+        if img.contains(word2):
+            objNames = img.getObjectNames()
+
+            word2Cnt += objNames.count(word2)
+            if img.contains(word1):
+                word1Cnt += objNames.count(word1)
+            
+    return word1Cnt/float(word2Cnt)
 
 
-# Implementing a Naives Bayes Model to classify data
+print "PROBABILITY = ",getProbability('coffee','table')
+
+
+
+    # Implementing a Naives Bayes Model to classify data
