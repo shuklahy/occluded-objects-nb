@@ -29,8 +29,14 @@ class Image(object):
     def getObjectNames(self):
         return self.objNames
 
-    def contains(self, object):
-        return object in self.objNames
+    def contains(self,object):
+		return object in self.objNames
+		
+    def isListContained(self, object):
+		for i in object:
+			if not(i in self.objNames):
+				return False
+		return True
 
 def getData(filename):
 
@@ -76,18 +82,18 @@ def getProbability(word1, word2):
     prob = 0
     for i in xrange(len(imgData)):
         img =  imgData[i]
-        print img.link
-        if img.contains(word2):
+        #print img.link
+        if img.isListContained(word2):
             objNames = img.getObjectNames()
 
-            word2Cnt += objNames.count(word2)
+            word2Cnt += 1
             if img.contains(word1):
-                word1Cnt += objNames.count(word1)
+                word1Cnt += 1
 
     return word1Cnt/float(word2Cnt)
 
 
-print "PROBABILITY = ",getProbability('coffee','table')
+print "PROBABILITY = ",getProbability('floor',['cable'])
 
 
 
