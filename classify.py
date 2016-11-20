@@ -36,7 +36,7 @@ def getData(filename):
 
     #
     # Images consist of objects
-    # Objects in turn consists vectors of words
+    # Objects in turn consists vectors
     #
     # Data    = List of Images
     # Images  = List of img Objects
@@ -68,7 +68,7 @@ def getData(filename):
 
     return images
 
-
+# Calculates conditional probability of word1 given word2
 def getProbability(word1, word2):
     imgData = getData('100images.txt')
     word2Cnt = 0
@@ -83,7 +83,7 @@ def getProbability(word1, word2):
             word2Cnt += objNames.count(word2)
             if img.contains(word1):
                 word1Cnt += objNames.count(word1)
-            
+
     return word1Cnt/float(word2Cnt)
 
 
