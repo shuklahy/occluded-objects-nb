@@ -106,20 +106,29 @@ def getUniqueObjects():
 	return uniqueObjectNames
 	
 # Get MostLikely objects given a set of words given some threshold
+# if threshold = -1, all words with probability greater than 0
 def mostLikelyObjects(wordList, threshold):
-	allObjects = getUniqueObjects()
+	allObjects = list(getUniqueObjects())
+	for i in wordList:
+		allObjects.remove(i)
+	
+	if threshold == -1:
+			threshold = 0
+		
 	likelyObjects = []
 	for obj in allObjects:
 		prob = getProbability(obj, wordList)
+		
 		if prob > threshold:
-			likelyObjects.append(obj)
-	
+			likelyObjects.append([obj,prob])
+		
+		
 	return likelyObjects
 			
 #print "PROBABILITY = ",getProbability('tree',['window'])
 objNames = getUniqueObjects()
-wordList = ['window']
-threshold = 0.1
+wordList = ['window','bike']
+threshold = -1
 mlo = mostLikelyObjects(wordList, threshold)
 print "Most likely objects given - ", wordList," Threshold =", threshold
 print mlo
