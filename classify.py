@@ -60,3 +60,6 @@ def getData(filename):
 
 images = getData('100images.txt')
 print len(images)
+
+
+# Implementing a Naives Bayes Model to classify data
